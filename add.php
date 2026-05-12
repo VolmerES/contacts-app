@@ -1,3 +1,33 @@
+<?php
+	// $_SERVER variable "superglobal" que contiene información del servidor y la petición.
+	// Comprobamos si se ha enviado form mediante un POST
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	{
+		//Creamos arreglo asociativo
+		//guardamos los datos mandados que contiene POST dentro de nuestro arreglo
+		$contact = [
+			"name" => $_POST["name"],
+			"phone" => $_POST["phone_number"],
+		];
+
+		if (file_exists("contacts.json")) {
+      		$contacts = json_decode(file_get_contents("contacts.json"), true);
+    	} else {
+      		$contacts = [];
+    }
+		//añadimos nuevo contacto al array clave->valor de contactos
+		$contacts[] = $contact;
+
+		//json_encode -> convierte array asociativo en json
+		//file_put_contents -> guarda ese json en un archivo
+		file_put_contents("contacts.json", json_encode($contacts));
+
+		// header -> envia comando http al navegador
+		// location: index -> le dice al navegador que se redirija a index.php
+		header("Location: index.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,10 +76,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">Home</a>
+            <a class="nav-link" href="php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./add.html">Add Contact</a>
+            <a class="nav-link" href="./add.php">Add Contact</a>
           </li>
         </ul>
       </div>
@@ -63,7 +93,7 @@
           <div class="card">
             <div class="card-header">Add New Contact</div>
             <div class="card-body">
-              <form>
+              <form method="POST" action="add.php">
                 <div class="mb-3 row">
                   <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
     
