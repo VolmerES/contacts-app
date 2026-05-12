@@ -1,27 +1,14 @@
 <?php
+	require "database.php";
 	// $_SERVER variable "superglobal" que contiene información del servidor y la petición.
 	// Comprobamos si se ha enviado form mediante un POST
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
-		//Creamos arreglo asociativo
-		//guardamos los datos mandados que contiene POST dentro de nuestro arreglo
-		$contact = [
-			"name" => $_POST["name"],
-			"phone" => $_POST["phone_number"],
-		];
+		$name = $_POST["name"];
+		$phone = $_POST["phone_number"];
 
-		if (file_exists("contacts.json")) {
-      		$contacts = json_decode(file_get_contents("contacts.json"), true);
-    	} else {
-      		$contacts = [];
-    }
-		//añadimos nuevo contacto al array clave->valor de contactos
-		$contacts[] = $contact;
-
-		//json_encode -> convierte array asociativo en json
-		//file_put_contents -> guarda ese json en un archivo
-		file_put_contents("contacts.json", json_encode($contacts));
-
+		$statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES ('$name', '$phone')");
+		$statement->execute();
 		// header -> envia comando http al navegador
 		// location: index -> le dice al navegador que se redirija a index.php
 		header("Location: index.php");
