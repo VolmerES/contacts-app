@@ -1,4 +1,14 @@
 <?php require "partials/header.php" ?>
+<?php sesion_start(); 
+session_start();
+
+
+if (!isset($_SESSION["user"]))
+{
+	header("Location: login.php");
+	return;
+}
+?>
 
 <div class="welcome d-flex align-items-center justify-content-center">
   <div class="text-center">

@@ -1,5 +1,6 @@
 <?php
 	require "database.php";
+	session_start();
 
 	$error = null;
 	// $_SERVER variable "superglobal" que contiene información del servidor y la petición.

@@ -1,20 +1,19 @@
 <?php
 	require "database.php";
-
 	session_start();
 
-if (!isset($_SESSION["user"]))
-{
-	header("Location: login.php");
-	return;
-}
-
+	if (!isset($_SESSION["user"]))
+	{
+		header("Location: login.php");
+		return;
+	}
+	
 	$error = null;
 	// $_SERVER variable "superglobal" que contiene información del servidor y la petición.
 	// Comprobamos si se ha enviado form mediante un POST
 	if ($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		if (empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["password"]))
+		if (empty($_POST["email"]) || empty($_POST["password"]))
 			$error = "Please fill all the fields.";
 		else if (!str_contains($_POST["email"], "@"))
 		{
@@ -22,30 +21,27 @@ if (!isset($_SESSION["user"]))
 		}
 		else
 		{
-			$statement =  $conn->prepare("SELECT * FROM users WHERE email = :email");
+			$statement =  $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
 			$statement->bindParam(":email", $_POST["email"]);
 			$statement->execute();
-			if ($statement->rowCount() > 0)
+			if ($statement->rowCount() == 0)
 			{
-				$error = "This email is already in use.";
+				$error = "Invalid credentials.";
 			}
 			else
 			{
-				$stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
-				$stmt->execute([
-					":name" => $_POST["name"],
-					":email" => $_POST["email"],
-					":password" => password_hash($_POST["password"], PASSWORD_BCRYPT),
-				]);
-				$statement =  $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
-				$statement->bindParam(":email", $_POST["email"]);
-				$statement->execute();
 				$user = $statement->fetch(PDO::FETCH_ASSOC);
-
-				session_start();
-				$_SESSION["user"] = $user;
-
-				header("Location: home.php");
+				if (!password_verify($_POST["password"], $user["password"]))
+				{
+					$error = "Invalid credentials.";
+				}
+				else
+				{
+					session_start();
+					unset($user["password"]);
+					$_SESSION["user"] = $user;
+					header("Location: home.php");
+				}
 			}
 		}
 	}
@@ -58,7 +54,7 @@ if (!isset($_SESSION["user"]))
 	<div class="row justify-content-center">
 	<div class="col-md-8">
 		<div class="card">
-		<div class="card-header">Register</div>
+		<div class="card-header">Login</div>
 		<div class="card-body">
 			<?php
 				if ($error) : ?>
@@ -67,14 +63,8 @@ if (!isset($_SESSION["user"]))
 			<?php
 				endif
 			?>
-			<form method="POST" action="register.php">
-			<div class="mb-3 row">
-				<label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
+			<form method="POST" action="login.php">
 
-				<div class="col-md-6">
-				<input id="name" type="text" class="form-control" name="name" autocomplete="name" autofocus>
-				</div>
-			</div>
 			<div class="mb-3 row">
 				<label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
 
