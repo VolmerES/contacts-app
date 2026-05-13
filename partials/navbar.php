@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <div class="container-fluid">
-	<a class="navbar-brand font-weight-bold" href="index.php">
-	<img class="mr-2" src="./static/img/logo.png" />
+	<a class="navbar-brand font-weight-bold" href="home.php">
+	<img class="mr-2" src="/contacts-app/static/img/logo.png" />
 	ContactsApp
 	</a>
 	<button
@@ -18,10 +18,10 @@
 	<div class="collapse navbar-collapse" id="navbarNav">
 	<ul class="navbar-nav">
 		<li class="nav-item">
-		<a class="nav-link" href="#">Home</a>
+		<a class="nav-link" href="home.php">Home</a>
 		</li>
 		<li class="nav-item">
-		<a class="nav-link" href="./add.php">Add Contact</a>
+		<a class="nav-link" href="add.php">Add Contact</a>
 		</li>
 	</ul>
 	</div>

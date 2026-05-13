@@ -21,8 +21,8 @@
 		$statement->execute();
 
 		// header -> envia comando http al navegador
-		// location: index -> le dice al navegador que se redirija a index.php
-		header("Location: index.php");
+		// location: index -> le dice al navegador que se redirija a home.php
+		header("Location: home.php");
 		}	
 	}
 ?>
