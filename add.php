@@ -2,6 +2,11 @@
 	require "database.php";
 	session_start();
 
+	if (!isset($_SESSION["user"]))
+		{
+			header("Location: login.php");
+			return;
+		}
 	$error = null;
 	// $_SERVER variable "superglobal" que contiene información del servidor y la petición.
 	// Comprobamos si se ha enviado form mediante un POST
@@ -16,7 +21,7 @@
 		$name = $_POST["name"];
 		$phone = $_POST["phone_number"];
 
-		$statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phone)");
+		$statement = $conn->prepare("INSERT INTO contacts (user_id, name, phone_number) VALUES ({$_SESSION['user']['id']}, :name, :phone)");
 		$statement->bindParam(":name", $_POST["name"]);
 		$statement->bindParam(":phone", $_POST["phone"]);
 		$statement->execute();

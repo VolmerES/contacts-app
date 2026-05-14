@@ -2,12 +2,12 @@
 	require "database.php";
 	session_start();
 
-	if (!isset($_SESSION["user"]))
+	if (isset($_SESSION["user"]))
 	{
-		header("Location: login.php");
+		header("Location: home.php");
 		return;
 	}
-	
+
 	$error = null;
 	// $_SERVER variable "superglobal" que contiene información del servidor y la petición.
 	// Comprobamos si se ha enviado form mediante un POST
@@ -37,7 +37,6 @@
 				}
 				else
 				{
-					session_start();
 					unset($user["password"]);
 					$_SESSION["user"] = $user;
 					header("Location: home.php");

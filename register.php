@@ -3,9 +3,9 @@
 
 	session_start();
 
-if (!isset($_SESSION["user"]))
+if (isset($_SESSION["user"]))
 {
-	header("Location: login.php");
+	header("Location: home.php");
 	return;
 }
 
@@ -42,7 +42,6 @@ if (!isset($_SESSION["user"]))
 				$statement->execute();
 				$user = $statement->fetch(PDO::FETCH_ASSOC);
 
-				session_start();
 				$_SESSION["user"] = $user;
 
 				header("Location: home.php");
