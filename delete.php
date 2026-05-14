@@ -23,7 +23,7 @@ if ($statement->rowCount() == 0)
 
 $contact = $statement->fetch(PDO::FETCH_ASSOC);
 
-IF ($contact["USER_ID"] !== $_SESSION["useer"]["id"])
+if ($contact["user_id"] !== $_SESSION["user"]["id"])
 {
 	http_response_code(403);
 	echo("HTTP 403 UNAUTHORIZED");
@@ -31,6 +31,8 @@ IF ($contact["USER_ID"] !== $_SESSION["useer"]["id"])
 }
 
 $conn->prepare("DELETE FROM contacts WHERE id = :id")->execute([":id" => $id]);
+
+$_SESSION["flash"] = ["message" => "Contact {$contact['name']} deleted."];
 
 header("Location: home.php");
 ?>
