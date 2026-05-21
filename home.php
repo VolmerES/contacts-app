@@ -35,7 +35,12 @@ $contacts = $conn->query("SELECT * FROM contacts WHERE user_id = {$_SESSION['use
         	      <h3 class="card-title text-capitalize"><?= $contact["name"] ?></h3>
         	      <p class="m-2"><?= $contact["phone_number"] ?>
 				  </p>
+				  <?php $addresses = $conn->query("SELECT * FROM addresses WHERE contact_id = {$contact['id']}"); ?>
+                  <?php foreach ($addresses as $address): ?>
+                      <p class="m-2 text-muted"> <?= $address["address"] ?></p>
+                  <?php endforeach ?>
         	      <a href="edit.php?id=<?= $contact["id"] ?>" class="btn btn-secondary mb-2">Edit Contact</a>
+				  <a href="newAddress.php?id=<?= $contact["id"] ?>" class="btn btn-secondary mb-2">Add Address</a>
         	      <a href="delete.php?id=<?= $contact["id"] ?>" class="btn btn-danger mb-2">Delete Contact</a>
         	    </div>
         	  </div>

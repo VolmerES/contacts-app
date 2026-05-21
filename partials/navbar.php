@@ -23,10 +23,13 @@
               <a class="nav-link" href="home.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="add.php">Add Contact</a>
+				<a class="nav-link" href="add.php">Add Contact</a>
             </li>
+			<li class="nav-item">
+			  <a class="nav-link" href="addresses.php">Addresses</a>
+			</li>
             <li class="nav-item">
-              <a class="nav-link" href="logout.php">Logout</a>
+				<a class="nav-link" href="logout.php">Logout</a>
             </li>
           <?php else: ?>
             <li class="nav-item">

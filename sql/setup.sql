@@ -20,3 +20,13 @@ CREATE TABLE contacts (
 
 	FOREIGN KEY	(user_id) REFERENCES users(id)
 );
+
+CREATE TABLE addresses (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	address VARCHAR(255),
+	user_id INT NOT NULL,
+	contact_id INT NOT NULL,
+
+	FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (contact_id) REFERENCES contacts(id)
+)
