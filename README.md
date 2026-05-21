@@ -1,37 +1,39 @@
 # Contacts App
 
-Un sistema simple de gestión de contactos construido con **PHP** y **MySQL**. 
+Proyecto final para el curso "Todo sobre la web con PHP" de [Mastermind.ac](https://mastermind.ac) (Antonio Sarosi), realizado por **JUAN BAUTISTA DELORME**.
 
-Este proyecto ha sido creado como parte del plan de estudios de [Mastermind.ac](https://mastermind.ac) ("Todo sobre la web con PHP" por Antonio Sarosi) por **JUAN BAUTISTA DELORME**.
+Se trata de un sistema de gestión de contactos hecho con PHP y MySQL.
 
-## 🚀 Características
+## Qué hace el proyecto
 
-- **Autenticación de usuarios:** Registro, inicio de sesión (Login) y cierre de sesión (Logout).
-- **Gestión de contactos (CRUD):** 
-  - Añadir nuevos contactos.
-  - Ver lista de contactos guardados.
-  - Editar información de un contacto existente.
-  - Eliminar contactos.
-- **Privacidad:** Cada usuario solo puede ver y gestionar sus propios contactos.
-- **Alertas y Notificaciones:** Mensajes "flash" al realizar acciones (añadir, editar, borrar).
+Básicamente es una agenda donde cada usuario se tiene que registrar e iniciar sesión para ver sus cosas (los datos son privados por usuario). 
+El proyecto incluye todo el CRUD de los contactos, y como reto final del curso, le he añadido también la posibilidad de gestionar múltiples direcciones para cada contacto.
 
-## 🛠️ Tecnologías utilizadas
+Características principales:
+- **Usuarios:** Registro, login, logout.
+- **Contactos:** Crear, editar, borrar y listar contactos.
+- **Direcciones (NUEVO RETO):**
+  - Cada contacto puede tener varias direcciones asociadas.
+  - Pantalla para añadir direcciones a un contacto específico.
+  - El listado en `home` ahora muestra también las direcciones.
+  - Pantalla global de direcciones para ver, editar o eliminar cualquiera de ellas.
+- Mensajes flash (verdes/rojos) para avisar cuando las acciones salen bien o dan error.
 
-- **Backend:** PHP 8+
-- **Base de Datos:** MySQL (conexión mediante PDO)
-- **Frontend:** HTML5, CSS3, JavaScript
-- **Estilos / Framework UI:** [Bootswatch Darkly](https://bootswatch.com/darkly/) (basado en Bootstrap 5)
+## Tecnologías
 
-## ⚙️ Configuración e Instalación
+- PHP puro (PDO para la BBDD)
+- MySQL
+- HTML, CSS, JavaScript básico
+- Bootswatch (Darkly) para no complicarme con los estilos.
 
-Para ejecutar este proyecto en tu entorno local (localhost), sigue estos pasos:
+## Cómo probarlo en tu ordenador
 
-1. **Clonar o descargar el proyecto** en tu entorno local.
-2. **Configurar la base de datos:**
-   - Asegúrate de tener tu servidor MySQL encendido (mediante XAMPP, MAMP o nativo).
-   - Ejecuta el script provisto en `sql/setup.sql` para crear la base de datos `contacts_app` y las tablas necesarias (`users` y `contacts`).
-3. **Configurar la conexión:**
-   - Si tu configuración de base de datos local no usa el usuario `root` sin contraseña, ajusta las credenciales en el archivo `database.php`.
-4. **Iniciar el servidor web:**
-   - Si utilizas **XAMPP**, asegúrate de colocar el proyecto dentro de la carpeta `htdocs`, o crear un enlace simbólico, e ingresa desde `http://localhost/contacts-app`.
-   - Si prefieres el **servidor nativo de PHP**, abre una terminal en la raíz del proyecto y ejecuta: `php -S 127.0.0.1:8080`. Luego, abre en tu navegador `http://127.0.0.1:8080`.
+1. Clona o descárgate la carpeta entera.
+2. Sube la base de datos:
+   - He dejado un archivo llamado `sql/contacts_app_export.sql` que ya incluye la estructura completa (tablas `users`, `contacts` y `addresses`) junto con datos de prueba. Importa este archivo en tu MySQL.
+3. Conexión:
+   - Si tu MySQL no usa el usuario `root` por defecto (sin contraseña), vas a tener que cambiar los datos en el archivo `database.php`.
+4. Levanta el proyecto:
+   - Desde la terminal en la raíz del proyecto, ejecuta: `php -S 127.0.0.1:8000`
+   - O mételo en la carpeta htdocs si usas XAMPP.
+5. Abre `http://localhost:8000` en tu navegador y listo.
