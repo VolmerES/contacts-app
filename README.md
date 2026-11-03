@@ -37,3 +37,7 @@ Características principales:
    - Desde la terminal en la raíz del proyecto, ejecuta: `php -S 127.0.0.1:8000`
    - O mételo en la carpeta htdocs si usas XAMPP.
 5. Abre `http://localhost:8000` en tu navegador y listo.
+
+## Licencia
+
+Código bajo licencia [MIT](LICENSE). © 2026 Juan Bautista Delorme Pinedo.
